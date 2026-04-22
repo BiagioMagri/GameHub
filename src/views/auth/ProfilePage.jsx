@@ -85,20 +85,21 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {userFavourites.length > 0 ? (
                             userFavourites.map((game) => (
-                                <div 
-                                    key={game.id} 
-                                    className="group relative bg-[#1a1d23] hover:bg-purple-600 border border-white/5 p-6 rounded-3xl transition-all duration-500 transform hover:-translate-y-2 cursor-default shadow-xl"
-                                >
-                                    <div className="absolute top-4 right-4 text-white/20 group-hover:text-white/40 transition-colors">
-                                        <FaGamepad size={24} />
-                                    </div>
-                                    <h2 className="text-lg font-bold group-hover:text-white transition-colors mt-8">
-                                        {game.game_name}
-                                    </h2>
-                                    <p className="text-xs text-gray-500 group-hover:text-purple-200 uppercase tracking-widest mt-2 font-bold">
-                                        Action / RPG
-                                    </p>
-                                </div>
+                                <Link key={game.id} to={`/detail/${game.game_id || game.id}`} 
+                                        className="group relative bg-[#1a1d23] hover:bg-purple-600 border border-white/5 p-6 rounded-3xl transition-all duration-500 transform hover:-translate-y-2 active:scale-95 cursor-pointer shadow-xl block">
+                                       
+                                        <div className="absolute top-4 right-4 text-white/20 group-hover:text-white/40 transition-colors">
+                                            <FaGamepad size={24} />
+                                        </div>
+                                      
+                                        <h2 className="text-lg font-bold text-white group-hover:text-white transition-colors mt-8">
+                                            {game.game_name}
+                                        </h2>
+
+                                        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-black uppercase italic text-white flex items-center gap-1">
+                                            Vedi dettagli <span className="text-sm">→</span>
+                                        </div>
+                                    </Link>
                             ))
                         ) : (
                             <div className="col-span-full py-20 text-center bg-white/5 rounded-4xl border border-dashed border-white/10">

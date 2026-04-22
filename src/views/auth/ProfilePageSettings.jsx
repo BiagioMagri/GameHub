@@ -7,12 +7,13 @@ import { supabase } from "../../database/supabase"
 import defaultImage from '../../assets/defaultImage.png' 
 import { MdCancel } from "react-icons/md";
 import { FaUserGear, FaCloudArrowUp, FaPalette, FaAt, FaFloppyDisk } from "react-icons/fa6"
+import routename from "../../routing/routename"
 
 export default function ProfilePageSettings() {
     const [file, setFile] = useState()
     const [preview, setPreview] = useState()
     const { profile, getUser, updateProfile, avatarUrl } = useContext(UserContext)
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -26,6 +27,16 @@ export default function ProfilePageSettings() {
         }
     }, [file])
 
+    useEffect(()=>{
+        if(profile){
+            reset({
+                first_name:profile.first_name,
+                last_name:profile.last_name,
+                username:profile.username
+            })
+        }
+    }, [profile, reset])
+
     const handleAvatarSubmit = async (e) => {
         e.preventDefault();
         if (!file) return;
@@ -38,7 +49,7 @@ export default function ProfilePageSettings() {
 
     const onSubmit = async (data) => {
         updateProfile(data)
-        navigate(routes.profile)
+        navigate(routename.profile)
     }
 
 
@@ -96,14 +107,11 @@ export default function ProfilePageSettings() {
                             <FaAt className="text-blue-400" /> Dati Personali
                         </h2>
 
-                        <form 
-                            className="bg-white/5 p-10 rounded-[3rem] border border-white/10 backdrop-blur-md space-y-10" 
-                            onSubmit={handleSubmit(onSubmit)}
-                        >
+                        <form className="bg-white/5 p-10 rounded-[3rem] border border-white/10 backdrop-blur-md space-y-10" onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-1">Nome Completo</label>
-                                    <input type="text" placeholder={profile.first_name} className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700" 
+                                    <input type="text" className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700" 
                                         {...register("first_name", { required: "Campo obbligatorio" })} 
                                     />
                                     {errors.first_name && <p className="text-red-500 text-xs mt-1 ml-1">{errors.first_name.message}</p>}
@@ -111,7 +119,7 @@ export default function ProfilePageSettings() {
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-1">Cognome</label>
-                                    <input type="text" placeholder={profile.last_name} className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700" 
+                                    <input type="text" className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700" 
                                         {...register("last_name", { required: "Campo obbligatorio" })} 
                                     />
                                     {errors.last_name && <p className="text-red-500 text-xs mt-1 ml-1">{errors.last_name.message}</p>}
@@ -119,8 +127,8 @@ export default function ProfilePageSettings() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-1">Username Unico della Community</label>
-                                <input type="text" placeholder={profile.username} className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700 font-mono text-purple-400" 
+                                <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-1">Username</label>
+                                <input type="text" className="w-full bg-[#0f1115] border border-white/10 rounded-2xl px-6 py-4.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all placeholder:text-gray-700 font-mono text-purple-400" 
                                     {...register("username", { required: "Campo obbligatorio" })} 
                                     />
                                 {errors.username && <p className="text-red-500 text-xs mt-1 ml-1">{errors.username.message}</p>}
