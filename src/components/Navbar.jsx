@@ -42,7 +42,7 @@ export default function Navbar(){
         <>
             <div className="navbar shadow-sm bg-primario w-full sticky top-0 z-30 border-b border-white/20">
                 <div className="flex-1 navbar-start">
-                    <Link className="hover:ring-2 rounded-full hover:ring-accento transition ease-in-out transform hover:scale-105" to={routename.home}>
+                    <Link className="rounded-full transition ease-in-out transform hover:scale-110" to={routename.home}>
                         <img src={logo}/>
                     </Link>
                 </div>
