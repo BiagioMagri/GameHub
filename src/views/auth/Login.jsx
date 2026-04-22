@@ -49,7 +49,7 @@ export default function Login(){
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-bold uppercase tracking-widest text-gray-500 ml-2">Chiave d'accesso</label>
+                            <label className="text-[10px] font-bold uppercase tracking-widest text-gray-500 ml-2">Password</label>
                             <div className="relative">
                                 <input 
                                     type="password" 
