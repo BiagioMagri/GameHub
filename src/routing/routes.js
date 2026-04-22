@@ -38,10 +38,6 @@ const routes = createBrowserRouter([
                 Component: SearchByGenre,
                 loader: searchByGenres
             },
-            {
-                path: "*",
-                Component: ErrorPage
-            }
         ]
     },
     {
@@ -71,6 +67,10 @@ const routes = createBrowserRouter([
         Component: DetailPage,
         loader: gameDetail
     },
+    {
+                path: "*",
+                Component: ErrorPage
+    }
 ])
 
 export default routes
